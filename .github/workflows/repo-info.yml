@@ -17,7 +17,7 @@ jobs:
 
       - name: Show star count
         run: |
-          STARS=$(jq -e .stars repo.json)
+          STARS=$(jq -e .stargazers_count repo.json)
           echo "This repo has $STARS stars"
 
       - name: Show description
