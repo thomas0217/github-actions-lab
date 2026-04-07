@@ -1,0 +1,24 @@
+name: Repo Info
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  fetch-info:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch repository info
+        run: curl -s "https://api.github.com/repos/${{ github.repository }}" > repo.json
+
+      - name: Show repository name
+        run: jq -r .full_name repo.json
+
+      - name: Show star count
+        run: |
+          STARS=$(jq -e .stars repo.json)
+          echo "This repo has $STARS stars"
+
+      - name: Show description
+        run: jq -r .description repo.json
